@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Static Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: crimson;
+      font-weight: bolder;
+      font-size: 30px;
+      font-family: 'Times New Roman', Times, serif;
+      text-decoration: underline;
+      text-align: center;
+
+    }
+
+    h6 {
+      color: blue;
+      font-size: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      text-align: justify;
+    }
+
+    p {
+      color: #666;
+      font-size: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      text-align: justify;
+    }
+
+    img {
+        width: fit-content;
+        text-align: justify;
+    }
+    li {
+      color: #666;
+      font-size: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      text-align: justify;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hosting a Static Website on Amazon S3</h1>
+  <br>
+  <br>
+  <br>
+  <p>This website explains how to use Amazon S3 to host a static website and connect it to a custom domain using Amazon
+    Route 53</p>
+  <h6>Following are the Steps to host a Static website on Amazon S3 with custom domain:</h6>
+  <p>Step 1: Using Amazon Route 53, register a custom domain
+    <br>
+    Step 2: Setup Amazon S3 bucket and design a website
+    <br>
+    Step 3: Direct domain to S3 Bucket
+    <br>
+  </p>
+  <h6>AWS Services:</h6>
+  <p>1. Route 53: Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service. Route 53
+    connects user requests to internet applications running on AWS or on-premises. It facilitates domain registration,
+    DNS routing, and resource health checking for your infrastructure. You have access to the DNS records on Route 53
+    that translate domain names (like example.com) into IP addresses for other resources.
+    <br>
+    <br>
+    2. Amazon S3: Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading
+    scalability, data availability, security, and performance. You can use Amazon S3 to store and retrieve any amount of
+    data at any time, from anywhere.
+  </p>
+  <h6>Overview of the Deployment:</h6>
+
+  <img src="deployment.png" alt="Deployment of static website hosting" width="800">
+  <h6>Step 1: Using Amazon Route 53, register a custom domain</h6>
+  <p><li>Open Amazon Route 53 console</li></p>
+  <br>
+  <img src="RegisteredDomain.png" alt="Registered Domain" width="800">
+  <br>
+  <p><li>Choose Domains and then click on Register domains. Enter the name of your custom domain (surveyform.click)
+    and check the availability</li></p>
+  <br>
+  <img src="CustomDomain.png" alt="Custom Domain" width="800">
+  <br>
+  <p>• Purchase your custom domain by following all the prompts</p>
+  <h6>Step 2: Setup Amazon S3 bucket and design a website</h6>
+  <p><li>Open Amazon S3 console</li></p>
+  <br>
+  <img src="S3BucketConsole.png" alt="S3 Bucket Console" width="800">
+  <br>
+  <p><li>Click on Create bucket and enter a unique bucket name</li></p>
+  <p>
+    Bucket name: same as your custom domain name(surveyform.click)
+    <br>
+    AWS Region: Region close to your location
+    <br>
+    Block all public access: uncheck
+    <br>
+    Keep all the others as defaults and click on create S3 bucket
+  </p>
+  <br>
+  <img src="CreateS3Bucket.png" alt="Create S3 Bucket" width="800">
+  <br>
+  <p><li>Upload your website files to the bucket</li></p>
+  <br>
+  <img src="UploadFilesToS3Bucket.png" alt="Upload Files to S3 Bucket" width="800">
+  <br>
+  <p><li>Under Properties section, enable Static Website Hosting</li></p>
+  <br>
+  <img src="EnabelStaticWebsiteHosting.png" alt="Enable Static Website Hosting Page" width="500">
+  <br>
+  <p><li>Under Permission section attach a bucket policy</li></p>
+  <br>
+  <img src="BucketPolicy.png" alt="Bucket Policy" width="800">
+  <br>
+  <p>We have now configured the S3 bucket that host a static website which is publicly accessible to the viewers.
+    <br>
+    Open the bucket, and you can view our static website. This URL was provided by Amazon. However, it is not hosted on
+    the custom domain.
+  </p>
+  <img src="StaticWebsite.png" alt="Static Website" width="300">
+  <h6>Step 3: Direct domain to S3 bucket</h6>
+  <p><li>In the Route 53 choose Hosted zones click on custom domain and create a new record set</li></p>
+  <br>
+  <img src="HostedZone.png" alt="Hosted Zone" width="800">
+  <br>
+  <p><li>Enter alias target field with endpoint of your S3 bucket</li></p>
+  <p> Record Type: A-Route traffic to an IPV4 address and some AWS resources
+    <br>
+    Route traffic to: Alias to S3 website endpoint, and your hosted AWS region
+    <br>
+    Routing policy: Simple Routing
+    <br>
+    Evaluate target health: No
+    <br>
+    Then, click on create record.
+  </p>
+  <br>
+  <img src="RecordSet.png" alt="Record Set" width="800">
+  <br>
+  <p>Now you can view static website on the custom domain</p>
+  <img src="StaticWebsiteWithCustomDomain.png" alt="Static Website With Custom Domain" width="800">
+</body>
+
+</html>
